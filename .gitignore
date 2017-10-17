@@ -1,4 +1,8 @@
 *.csv
 *.xml
+bin/
+lib/
+local/
+include/
 .ipynb_checkpoints/
 
