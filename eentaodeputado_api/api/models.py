@@ -7,8 +7,10 @@ from django.db import models
 
 
 class Deputado(models.Model):
-
-	def __init__(self, arg):
-		pass
+	nome = models.CharField(max_length=200, blank=True, default='')
+	
+	class Meta:
+		ordering = ('nome',)
+			
 		
 
