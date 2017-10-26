@@ -37,7 +37,7 @@ class Proposicao(models.Model):
 	tipo = models.CharField(max_length=3, choices=TIPO_CHOICES,
 							blank=True, default='')
 	ano = models.IntegerField(blank=True, default='')
-	numero = models.IntegerField(blank=True, default=0)
+	id_proposicao = models.IntegerField(blank=True, default=0)
 	ementa = models.TextField()
 	explicacao = models.TextField()
 	autor = models.CharField(max_length=254, blank=True, default='')
