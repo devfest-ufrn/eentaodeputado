@@ -6,11 +6,19 @@ from django.db import models
 # Create your models here.
 
 SEXO_CHOICES = (('M', 'masculino'), ('F', 'feminino'))
-ESTADO_CHOICES = (('','AC'), ('','AL'), ('','AP'), ('','AM'), ('','BA'), ('','CE'), ('','DF'), ('','ES'), ('','GO'),
-					('','MA'), ('','MT'),('','MS'), ('','MG'), ('','PA'), ('','PB'), ('','PR'), ('','PE'), ('','PI'),
-					('','RJ'), ('','RN'), ('','RS'), ('','RO'), ('','RR'), ('','SC'), ('','SP'), ('','SE'), ('','TO'))
-TIPO_CHOICES = (('', 'MPV'), ('', 'MSC'), ('', 'REQ'), ('', 'PEC'), ('', 'PRC'), ('', 'PLP'), ('', 'PL'), ('', 'PLN'), 
-				('', 'PDC'), ('', 'REP'))
+
+ESTADO_CHOICES = (('AC','AC'), ('AL','AL'), ('AP','AP'), ('AM','AM'),
+					('BA','BA'), ('CE','CE'), ('DF','DF'),
+					('ES','ES'), ('GO','GO'), ('MA','MA'),
+					('MT','MT'),('MS','MS'), ('MG','MG'),
+					('PA','PA'),('PB','PB'), ('PR','PR'), ('PE','PE'),
+					('PI','PI'),('RJ','RJ'), ('RN','RN'),
+					('RS','RS'), ('RO','RO'),('RR','RR'), 
+					('SC','SC'),('SP','SP'), ('SE','SE'), ('TO','TO'))
+
+TIPO_CHOICES = (('MPV', 'MPV'), ('MSC', 'MSC'), ('REQ', 'REQ'), ('PEC', 'PEC'),
+				('PRC', 'PRC'), ('PLP', 'PLP'), ('PL', 'PL'), ('PLN', 'PLN'), 
+				('PDC', 'PDC'), ('REP', 'REP'))
 
 
 class Deputado(models.Model):
@@ -25,6 +33,8 @@ class Deputado(models.Model):
 	condicao = models.CharField(max_length=20, blank=True, default='')
 	idParlamentar = models.IntegerField(blank=True, default=0)
 	
+	def __str__(self):
+		return self.nomeParlamentar
 	
 	class Meta:
 		ordering = ('nome',)
