@@ -22,17 +22,17 @@ TIPO_CHOICES = (('MPV', 'MPV'), ('MSC', 'MSC'), ('REQ', 'REQ'), ('PEC', 'PEC'),
 
 
 class Deputado(models.Model):
+	idParlamentar = models.IntegerField(blank=True, default=0)
 	nome = models.CharField(max_length=200, blank=True, default='')
 	nomeParlamentar = models.CharField(max_length=100, blank=True, default='')
 	sexo = models.CharField(max_length=9, choices=SEXO_CHOICES, blank=True, default='')
 	uf = models.CharField(max_length=2, choices=ESTADO_CHOICES, blank=True, default='')
 	partido = models.CharField(max_length=20, blank=True, default='')
+	condicao = models.CharField(max_length=20, blank=True, default='')
 	email = models.EmailField(max_length=254, blank=True, default='')
 	urlFoto = models.URLField(max_length=200, blank=True, default='')
 	fone = models.CharField(max_length=9, blank=True, default='')
-	condicao = models.CharField(max_length=20, blank=True, default='')
-	idParlamentar = models.IntegerField(blank=True, default=0)
-	
+		
 	def __str__(self):
 		return self.nomeParlamentar
 	
@@ -42,12 +42,12 @@ class Deputado(models.Model):
 		verbose_name_plural = 'deputados'
 
 class Proposicao(models.Model):
+	id_proposicao = models.IntegerField(blank=True, default=0)
 	nome = models.CharField(max_length=200, blank=True, default='')
 	numero = models.IntegerField(blank=True, default=0)
 	tipo = models.CharField(max_length=3, choices=TIPO_CHOICES,
 							blank=True, default='')
 	ano = models.IntegerField(blank=True, default='')
-	id_proposicao = models.IntegerField(blank=True, default=0)
 	ementa = models.TextField()
 	explicacao = models.TextField()
 	autor = models.CharField(max_length=254, blank=True, default='')

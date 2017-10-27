@@ -13,7 +13,7 @@ urlpatterns = [
 	url(r'^ranking/$', views.RankingGeral.as_view(), name='ranking-geral'),
 	url(r'^ranking/uf/'+ uf +'/$', views.RankingUF.as_view(), name='ranking-federacao'),
 	url(r'^ranking/partido/(?P<partido>\w+)/$', views.RankingPartido.as_view(), name='ranking-partido'),
-	url(r'^ranking/presencas/$', views.ranking_presencas, name='ranking-presencas'),
+	url(r'^ranking/presencas/$', views.RankingPresencas.as_view(), name='ranking-presencas'),
 	url(r'^ranking/qdtPropostas/$', views.ranking_propostas, name='ranking-propostas'),
 
 	url(r'^deputados/$', views.DeputadoList.as_view(), name='lista-deputados'),

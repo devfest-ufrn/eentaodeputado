@@ -32,9 +32,11 @@ class DeputadoById(ListAPIView):
 		return Deputado.objects.filter(idParlamentar=idParlamentar)
 
 class DeputadoDetalhes(RetrieveAPIView):
-	pass
-	#queryset = Deputado.objects.all()
-	#serializer_class = DeputadoSerializer
+	serializer_class = DeputadoSerializer
+
+	def get_queryset(self):
+		return Deputado.objects.values_list('-nomeParlamentar', 'idParlamentar', 'urlFoto', 'uf', 'partido', 'condicao')
+
 
 class ProposicaoCreate(CreateAPIView):
 	queryset = Proposicao.objects.all()
@@ -48,21 +50,28 @@ class RankingGeral(ListAPIView):
 	queryset = Deputado.objects.all()
 	serializer_class = DeputadoSerializer
 
+	def get_queryset(self):
+		return Deputado.objects.order_by('-produtividade')
+
 class RankingUF(ListAPIView):
 	serializer_class = DeputadoSerializer
 
 	def get_queryset(self):
 		uf = self.kwargs['uf']
-		return Deputado.objects.filter(uf=uf)
+		return Deputado.objects.filter(uf=uf).order_by('-produtividade')
+
+class RankingPresencas(ListAPIView):
+	serializer_class = DeputadoSerializer
+
+	def get_queryset(self):
+		return Deputado.objects.order_by('-qtd_presencas')
 
 class RankingPartido(ListAPIView):
 	serializer_class = DeputadoSerializer
 
 	def get_queryset(self):
 		partido = self.kwargs['partido']
-		return Deputado.objects.filter(partido=partido)
-
-
+		return Deputado.objects.filter(partido=partido).order_by('-produtividade')
 
 def deputadoProposicoes(request, id):
 	pass
@@ -90,7 +99,6 @@ def proposicaoById(request, identification):
 	return JsonResponse(deputado_serializer.data, safe=False)	
 	'''
 
-def ranking_presencas(request):
-	pass
+
 def ranking_propostas(request):
 	pass	
