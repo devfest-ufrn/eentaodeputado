@@ -23,8 +23,8 @@ urlpatterns = [
 	url(r'^deputados/(?P<idParlamentar>\d+)/presencas/$', views.deputadoPresencas, name='lista-presencas'),
 	url(r'^deputados/(?P<idParlamentar>\d+)/ausencias/$', views.deputadoAusencias, name='lista-ausencias'),
 
-	url(r'^proposicoes/$', views.proposicao_list, name='lista-proposicoes'),
-	url(r'^proposicoes/(\d+)/$', views.proposicaoById, name='lista-proposicao-id'),
+	url(r'^proposicoes/$', views.ProposicaoList.as_view(), name='lista-proposicoes'),
+	url(r'^proposicoes/(?P<idProposicao>\d+)/$', views.ProposicaoById.as_view(), name='lista-proposicao-id'),
 ]
 
 

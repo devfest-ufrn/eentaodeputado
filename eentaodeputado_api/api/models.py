@@ -32,6 +32,9 @@ class Deputado(models.Model):
 	email = models.EmailField(max_length=254, blank=True, default='')
 	urlFoto = models.URLField(max_length=200, blank=True, default='')
 	fone = models.CharField(max_length=9, blank=True, default='')
+	qtdPropostas = models.IntegerField(blank=True, default=0)
+	qtdPresencas = models.IntegerField(blank=True, default=0)
+	produtividade = models.FloatField(blank=True, default=0.0)
 		
 	def __str__(self):
 		return self.nomeParlamentar
@@ -47,7 +50,7 @@ class Proposicao(models.Model):
 	numero = models.IntegerField(blank=True, default=0)
 	tipo = models.CharField(max_length=3, choices=TIPO_CHOICES,
 							blank=True, default='')
-	ano = models.IntegerField(blank=True, default='')
+	ano = models.IntegerField(blank=True, default=0)
 	ementa = models.TextField()
 	explicacao = models.TextField()
 	autor = models.CharField(max_length=254, blank=True, default='')
