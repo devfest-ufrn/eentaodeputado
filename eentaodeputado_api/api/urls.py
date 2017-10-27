@@ -14,17 +14,17 @@ urlpatterns = [
 	url(r'^ranking/uf/'+ uf +'/$', views.RankingUF.as_view(), name='ranking-federacao'),
 	url(r'^ranking/partido/(?P<partido>\w+)/$', views.RankingPartido.as_view(), name='ranking-partido'),
 	url(r'^ranking/presencas/$', views.RankingPresencas.as_view(), name='ranking-presencas'),
-	url(r'^ranking/qdtPropostas/$', views.ranking_propostas, name='ranking-propostas'),
+	url(r'^ranking/qdtPropostas/$', views.RankingPropostas.as_view(), name='ranking-propostas'),
 
 	url(r'^deputados/$', views.DeputadoList.as_view(), name='lista-deputados'),
-	url(r'^deputados/(?P<idParlamentar>\d+)/$', views.DeputadoById.as_view(), name='lista-deputado-id'),
-	url(r'^deputados/(?P<idParlamentar>\d+)/detalhes/$', views.DeputadoDetalhes.as_view(), name='lista-detalhes'),
-	url(r'^deputados/(?P<idParlamentar>\d+)/proposicoes/$', views.deputadoProposicoes, name='lista-proposicoes'),
-	url(r'^deputados/(?P<idParlamentar>\d+)/presencas/$', views.deputadoPresencas, name='lista-presencas'),
-	url(r'^deputados/(?P<idParlamentar>\d+)/ausencias/$', views.deputadoAusencias, name='lista-ausencias'),
+	url(r'^deputados/(?P<idParlamentar>[0-9]+)/$', views.DeputadoById.as_view(), name='lista-deputado-id'),
+	url(r'^deputados/(?P<idParlamentar>[0-9]+)/detalhes/$', views.DeputadoDetalhes.as_view(), name='lista-detalhes'),
+	url(r'^deputados/(?P<idParlamentar>[0-9]+)/proposicoes/$', views.deputadoProposicoes, name='lista-proposicoes'),
+	url(r'^deputados/(?P<idParlamentar>[0-9]+)/presencas/$', views.deputadoPresencas, name='lista-presencas'),
+	url(r'^deputados/(?P<idParlamentar>[0-9]+)/ausencias/$', views.deputadoAusencias, name='lista-ausencias'),
 
 	url(r'^proposicoes/$', views.ProposicaoList.as_view(), name='lista-proposicoes'),
-	url(r'^proposicoes/(?P<idProposicao>\d+)/$', views.ProposicaoById.as_view(), name='lista-proposicao-id'),
+	url(r'^proposicoes/(?P<idProposicao>[0-9]+)/$', views.ProposicaoById.as_view(), name='lista-proposicao-id'),
 ]
 
 

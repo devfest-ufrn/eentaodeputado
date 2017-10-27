@@ -51,10 +51,10 @@ class Proposicao(models.Model):
 	tipo = models.CharField(max_length=3, choices=TIPO_CHOICES,
 							blank=True, default='')
 	ano = models.IntegerField(blank=True, default=0)
-	ementa = models.TextField()
-	explicacao = models.TextField()
+	ementa = models.TextField(blank=True, default='')
+	explicacao = models.TextField(blank=True, default='')
 	autor = models.CharField(max_length=254, blank=True, default='')
-	indexacao = models.TextField()
+	indexacao = models.TextField(blank=True, default='')
 	
 	class Meta:
 		ordering = ('nome',)

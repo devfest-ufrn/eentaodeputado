@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
-from rest_framework.generics import (ListAPIView, CreateAPIView, RetrieveAPIView)
+from rest_framework.generics import (ListCreateAPIView, ListAPIView, CreateAPIView, RetrieveAPIView)
 
 from api.models import Deputado, Proposicao
 from api.serializers import DeputadoSerializer, ProposicaoSerializer
@@ -20,22 +20,24 @@ class DeputadoCreate(CreateAPIView):
 	queryset = Deputado.objects.all()
 	serializer_class = DeputadoSerializer
 
-class DeputadoList(ListAPIView):
+class DeputadoList(ListCreateAPIView):
 	queryset = Deputado.objects.all()
 	serializer_class = DeputadoSerializer
 
-class DeputadoById(RetrieveAPIView):
+class DeputadoById(ListAPIView):
 	serializer_class = DeputadoSerializer
 
 	def get_queryset(self):
 		idParlamentar = self.kwargs['idParlamentar']
+		print >>sys.stderr, self.kwargs
 		return Deputado.objects.filter(idParlamentar=idParlamentar)
 
-class DeputadoDetalhes(RetrieveAPIView):
+class DeputadoDetalhes(ListAPIView):
 	serializer_class = DeputadoSerializer
 
 	def get_queryset(self):
-		return Deputado.objects.values_list('nomeParlamentar', 'idParlamentar', 'urlFoto', 'uf', 'partido', 'condicao')
+		deputado = self.kwargs['idParlamentar']
+		return Deputado.objects.filter(idParlamentar=deputado).values('nomeParlamentar', 'idParlamentar', 'urlFoto', 'uf', 'partido', 'condicao')
 
 
 class ProposicaoCreate(CreateAPIView):
@@ -46,12 +48,12 @@ class ProposicaoList(ListAPIView):
 	queryset = Proposicao.objects.all()
 	serializer_class = ProposicaoSerializer
 
-class ProposicaoById(RetrieveAPIView):
+class ProposicaoById(ListAPIView):
 	serializer_class = ProposicaoSerializer
 
 	def get_queryset(self):
 		id_proposicao = self.kwargs['idProposicao']
-		return Deputado.objects.filter(id_proposicao=id_proposicao)
+		return Proposicao.objects.filter(id_proposicao=id_proposicao)
 
 class RankingGeral(ListAPIView):
 	queryset = Deputado.objects.all()
@@ -93,6 +95,3 @@ def deputadoPresencas(request, id):
 	pass
 def deputadoAusencias(request, id):
 	pass
-
-def ranking_propostas(request):
-	pass	
