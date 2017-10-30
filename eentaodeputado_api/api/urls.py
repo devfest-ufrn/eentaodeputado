@@ -7,24 +7,21 @@ uf_list = ['AC','AL','AM','AP','BA','CE','DF','ES','GO','MA','MG',
 uf = '(?P<uf>' + '|'.join(uf_list) + ')'
 
 urlpatterns = [
-	url(r'^create/deputado/$', views.DeputadoCreate.as_view(), name='create-deputado'),
-	url(r'^create/proposicao/$', views.ProposicaoCreate.as_view(), name='create-proposicao'),
-
 	url(r'^ranking/$', views.RankingGeral.as_view(), name='ranking-geral'),
 	url(r'^ranking/uf/'+ uf +'/$', views.RankingUF.as_view(), name='ranking-federacao'),
 	url(r'^ranking/partido/(?P<partido>\w+)/$', views.RankingPartido.as_view(), name='ranking-partido'),
 	url(r'^ranking/presencas/$', views.RankingPresencas.as_view(), name='ranking-presencas'),
 	url(r'^ranking/qdtPropostas/$', views.RankingPropostas.as_view(), name='ranking-propostas'),
 
-	url(r'^deputados/$', views.DeputadoList.as_view(), name='lista-deputados'),
-	url(r'^deputados/(?P<idParlamentar>[0-9]+)/$', views.DeputadoById.as_view(), name='lista-deputado-id'),
-	url(r'^deputados/(?P<idParlamentar>[0-9]+)/detalhes/$', views.DeputadoDetalhes.as_view(), name='lista-detalhes'),
-	url(r'^deputados/(?P<idParlamentar>[0-9]+)/proposicoes/$', views.deputadoProposicoes, name='lista-proposicoes'),
-	url(r'^deputados/(?P<idParlamentar>[0-9]+)/presencas/$', views.deputadoPresencas, name='lista-presencas'),
-	url(r'^deputados/(?P<idParlamentar>[0-9]+)/ausencias/$', views.deputadoAusencias, name='lista-ausencias'),
+	url(r'^deputados/$', views.DeputadoList.as_view({'get': 'list', 'post': 'create'}), name='lista-deputados'),
+	url(r'^deputados/(?P<idParlamentar>\d+)/$', views.DeputadoList.as_view({'get': 'retrieve'}), name='lista-deputado-id'),
+	url(r'^deputados/(?P<idParlamentar>\d+)/detalhes/$', views.DeputadoDetalhes.as_view(), name='lista-detalhes'),
+	url(r'^deputados/(?P<idParlamentar>\d+)/proposicoes/$', views.deputadoProposicoes, name='lista-proposicoes'),
+	url(r'^deputados/(?P<idParlamentar>\d+)/presencas/$', views.deputadoPresencas, name='lista-presencas'),
+	url(r'^deputados/(?P<idParlamentar>\d+)/ausencias/$', views.deputadoAusencias, name='lista-ausencias'),
 
-	url(r'^proposicoes/$', views.ProposicaoList.as_view(), name='lista-proposicoes'),
-	url(r'^proposicoes/(?P<idProposicao>[0-9]+)/$', views.ProposicaoById.as_view(), name='lista-proposicao-id'),
+	url(r'^proposicoes/$', views.ProposicaoList.as_view({'get': 'list', 'post': 'create'}), name='lista-proposicoes'),
+	url(r'^proposicoes/(?P<id_proposicao>\d+)/$', views.ProposicaoList.as_view({'get': 'retrieve'}), name='lista-proposicao-id'),
 ]
 
 

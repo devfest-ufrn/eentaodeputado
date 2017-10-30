@@ -3,11 +3,9 @@ from __future__ import unicode_literals
 
 import sys
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.decorators import api_view
-from rest_framework.generics import (ListCreateAPIView, ListAPIView, CreateAPIView, RetrieveAPIView)
-
+from rest_framework import viewsets
+from rest_framework.generics import ListAPIView
 from api.models import Deputado, Proposicao
 from api.serializers import DeputadoSerializer, ProposicaoSerializer
 
@@ -16,44 +14,21 @@ from api.serializers import DeputadoSerializer, ProposicaoSerializer
 #DEBUGGER
 #print >>sys.stderr, self.kwargs
 
-class DeputadoCreate(CreateAPIView):
+class DeputadoList(viewsets.ModelViewSet):
 	queryset = Deputado.objects.all()
 	serializer_class = DeputadoSerializer
-
-class DeputadoList(ListCreateAPIView):
-	queryset = Deputado.objects.all()
-	serializer_class = DeputadoSerializer
-
-class DeputadoById(ListAPIView):
-	serializer_class = DeputadoSerializer
-
-	def get_queryset(self):
-		idParlamentar = self.kwargs['idParlamentar']
-		print >>sys.stderr, self.kwargs
-		return Deputado.objects.filter(idParlamentar=idParlamentar)
+	lookup_field = 'idParlamentar'
 
 class DeputadoDetalhes(ListAPIView):
+	queryset = Deputado.objects.all()
 	serializer_class = DeputadoSerializer
-
 	def get_queryset(self):
-		deputado = self.kwargs['idParlamentar']
-		return Deputado.objects.filter(idParlamentar=deputado).values('nomeParlamentar', 'idParlamentar', 'urlFoto', 'uf', 'partido', 'condicao')
+		return Deputado.objects.filter(idParlamentar=self.kwargs['idParlamentar']).values('nomeParlamentar', 'idParlamentar', 'urlFoto', 'uf', 'partido', 'condicao')
 
-
-class ProposicaoCreate(CreateAPIView):
+class ProposicaoList(viewsets.ModelViewSet):
 	queryset = Proposicao.objects.all()
 	serializer_class = ProposicaoSerializer
-
-class ProposicaoList(ListAPIView):
-	queryset = Proposicao.objects.all()
-	serializer_class = ProposicaoSerializer
-
-class ProposicaoById(ListAPIView):
-	serializer_class = ProposicaoSerializer
-
-	def get_queryset(self):
-		id_proposicao = self.kwargs['idProposicao']
-		return Proposicao.objects.filter(id_proposicao=id_proposicao)
+	lookup_field = 'id_proposicao'
 
 class RankingGeral(ListAPIView):
 	queryset = Deputado.objects.all()
@@ -65,9 +40,8 @@ class RankingGeral(ListAPIView):
 class RankingUF(ListAPIView):
 	serializer_class = DeputadoSerializer
 
-	def get_queryset(self):
-		uf = self.kwargs['uf']
-		return Deputado.objects.filter(uf=uf).order_by('-produtividade')
+	def get_queryset(self): 
+		return Deputado.objects.filter(uf=self.kwargs['uf']).order_by('-produtividade')
 
 class RankingPresencas(ListAPIView):
 	serializer_class = DeputadoSerializer
@@ -79,15 +53,13 @@ class RankingPartido(ListAPIView):
 	serializer_class = DeputadoSerializer
 
 	def get_queryset(self):
-		partido = self.kwargs['partido']
-		return Deputado.objects.filter(partido=partido).order_by('-produtividade')
+		return Deputado.objects.filter(partido=self.kwargs['partido']).order_by('-produtividade')
 
 class RankingPropostas(ListAPIView):
 	serializer_class = DeputadoSerializer
 
 	def get_queryset(self):
 		return Deputado.objects.order_by('-qtdPropostas')
-
 
 def deputadoProposicoes(request, id):
 	pass
