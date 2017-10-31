@@ -1,6 +1,13 @@
 from rest_framework import serializers
-from api.models import Deputado
+from api.models import Deputado, Proposicao
 
-class DeputadoSerializer(serializers.Serializer):
+class DeputadoSerializer(serializers.ModelSerializer):
 	"""docstring for DeputadoSerializer"""
-	nome = serializers.CharField(required=False, allow_blank=True, max_length=200)
+	class Meta:
+		model = Deputado
+		fields = '__all__'
+	
+class ProposicaoSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Proposicao
+		fields = '__all__'
