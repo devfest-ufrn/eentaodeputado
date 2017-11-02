@@ -9,6 +9,10 @@ import { SobreComponent } from './sobre/sobre.component';
 import { RankingGeralComponent } from './ranking-geral/ranking-geral.component';
 
 
+import { DeputadoService } from './deputado.service';
+
+
+
 const appRoutes: Routes = [
 	{ 
 		path: '',
@@ -35,7 +39,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [],
+  providers: [DeputadoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
