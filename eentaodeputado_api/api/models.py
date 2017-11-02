@@ -53,7 +53,8 @@ class Proposicao(models.Model):
 	ano = models.IntegerField(blank=True, default=0)
 	ementa = models.TextField(blank=True, default='')
 	explicacao = models.TextField(blank=True, default='')
-	autor = models.CharField(max_length=254, blank=True, default='')
+	# autor = models.CharField(max_length=254, blank=True, default='')
+	autor = models.ForeignKey(Deputado, on_delete=models.CASCADE)
 	indexacao = models.TextField(blank=True, default='')
 	
 	class Meta:
