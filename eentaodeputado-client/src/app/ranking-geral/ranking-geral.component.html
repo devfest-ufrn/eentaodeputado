@@ -28,18 +28,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="jumbotron">
-			<h2>Deputado fulano de tal</h2>
-			<p>lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum</p>
-			<p>
-				---- Chart vai aqui ---- 
-			</p>
-			<p>
-				<a href="" class="btn btn-primary">Detalhes</a>
-			</p>
-		</div>
-		<div class="jumbotron">
-			<h2>Deputado fulano de tal</h2>
+		<div class="jumbotron" *ngFor="let deputado of deputados">
+			<h2>{{ deputado.nome }}</h2>
 			<p>lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum</p>
 			<p>
 				---- Chart vai aqui ---- 

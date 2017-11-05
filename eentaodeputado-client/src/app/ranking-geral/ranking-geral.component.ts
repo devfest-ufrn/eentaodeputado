@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DeputadoService } from '../deputado.service';
+import { Deputado } from '../models/deputado';
 
 @Component({
   selector: 'app-ranking-geral',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RankingGeralComponent implements OnInit {
 
-  constructor() { }
+	deputados: Array<Deputado> = [];
 
-  ngOnInit() {
-  }
+	constructor(private deputadoService: DeputadoService) { }
+
+  	ngOnInit()
+  	{
+  		this.loadDeputados();
+  	}
+
+  	loadDeputados()
+  	{
+  		this.deputadoService.loadDeputados();
+  		this.deputados = this.deputadoService.getDeputados();
+  	}
 
 }
