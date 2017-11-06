@@ -1,22 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Deputado } from './models/deputado';
+import { HttpClient } from '@angular/common/http';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+
 
 @Injectable()
 export class DeputadoService {
 
-	deputados: Array<Deputado> = [];
+	baseUrl = "http://127.0.0.1:8000/";
+	deputados: Deputado[];
 
-	constructor(){ }
+	constructor(private http: HttpClient){ }
 
-	loadDeputados(): void
+	loadDeputados() : Observable<Deputado[]>
 	{
-		var tam = 10;
-		for (var i = 0; i < tam; i++) {
-			this.deputados.push(new Deputado('Teste'+i, 'teste'));
-		}
+		var endpoint = 'api/deputados/';
+		
+		return this.http.get(this.baseUrl+endpoint)
+					.map(res => res as Deputado[]);
+				
 	}
 
-	getDeputados() : Array<Deputado>
+	getDeputados()
 	{
 		return this.deputados;
 	}

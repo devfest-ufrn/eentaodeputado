@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DeputadoService } from '../deputado.service';
 import { Deputado } from '../models/deputado';
+import { Observable } from 'rxjs/Observable';
+
 
 @Component({
   selector: 'app-ranking-geral',
@@ -9,8 +11,7 @@ import { Deputado } from '../models/deputado';
 })
 export class RankingGeralComponent implements OnInit {
 
-	deputados: Array<Deputado> = [];
-
+	deputados: Deputado[];
 	constructor(private deputadoService: DeputadoService) { }
 
   	ngOnInit()
@@ -20,8 +21,7 @@ export class RankingGeralComponent implements OnInit {
 
   	loadDeputados()
   	{
-  		this.deputadoService.loadDeputados();
-  		this.deputados = this.deputadoService.getDeputados();
+  		this.deputadoService.loadDeputados().subscribe(data => this.deputados = data);
   	}
 
 }
