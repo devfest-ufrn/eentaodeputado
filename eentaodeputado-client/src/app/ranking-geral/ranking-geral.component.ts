@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class RankingGeralComponent implements OnInit {
 
-	deputados: Deputado[];
+	deputados: any;
 	constructor(private deputadoService: DeputadoService) { }
 
   	ngOnInit()
@@ -19,9 +19,13 @@ export class RankingGeralComponent implements OnInit {
   		this.loadDeputados();
   	}
 
-  	loadDeputados()
+  	loadDeputados() : void 
   	{
-  		this.deputadoService.loadDeputados().subscribe(data => this.deputados = data);
+  		this.deputadoService
+  				.loadDeputados()
+  				.subscribe(data => {
+  					this.deputados = data;
+  				});
   	}
 
 }

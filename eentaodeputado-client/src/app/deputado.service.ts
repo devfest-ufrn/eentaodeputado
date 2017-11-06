@@ -14,12 +14,12 @@ export class DeputadoService {
 
 	constructor(private http: HttpClient){ }
 
-	loadDeputados() : Observable<Deputado[]>
+	loadDeputados()
 	{
-		var endpoint = 'api/deputados/';
+		var endpoint = 'api/deputados/?format=json';
 		
 		return this.http.get(this.baseUrl+endpoint)
-					.map(res => res as Deputado[]);
+				.map(res => res as Deputado[]);
 				
 	}
 
