@@ -9,23 +9,22 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DeputadoService {
 
-	baseUrl = "http://127.0.0.1:8000/";
-	deputados: Deputado[];
+	baseUrl = "http://127.0.0.1:8000/api/";
 
 	constructor(private http: HttpClient){ }
 
-	loadDeputados()
+	loadAllDeputados()
 	{
-		var endpoint = 'api/deputados/?format=json';
+		var endpoint = 'deputados/?format=json';
+		
+		return this.http.get(this.baseUrl+endpoint);				
+	}
+
+	loadDeputadoByID(id: number)
+	{
+		var endpoint = 'deputados/'+id;
 		
 		return this.http.get(this.baseUrl+endpoint)
-				.map(res => res as Deputado[]);
-				
+					.map(res => res as Deputado);
 	}
-
-	getDeputados()
-	{
-		return this.deputados;
-	}
-
 }

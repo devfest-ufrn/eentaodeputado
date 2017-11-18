@@ -33,18 +33,39 @@
 				</p>
 				<p> Fone: {{ deputado.fone }} </p>
 				<p>
-					<button type="button" class="btn btn-primary btn-small" data-toggle="modal" data-target="#deputadoDetalhes">
+					<button type="button" (click)="detailsDeputado(deputado.idParlamentar)" class="btn btn-primary btn-small" data-toggle="modal" data-target="#deputadoDetalhes">
 					  Detalhes
 					</button>
 				</p>	
 			</div>				
 		</div>
+
+		<nav aria-label="Page navigation">
+		  <ul class="pagination">
+		    <li>
+		      <a href="#" aria-label="Previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+		    <li><a href="#">1</a></li>
+		    <li><a href="#">2</a></li>
+		    <li><a href="#">3</a></li>
+		    <li><a href="#">4</a></li>
+		    <li><a href="#">5</a></li>
+		    <li>
+		      <a (click)="nextPage()" href="#" aria-label="Next">
+		        <span aria-hidden="true">&raquo; </span>
+		      </a>
+		    </li>
+		  </ul>
+		</nav>
 	</div>
 	<!-- Button trigger modal -->
 
 
 <!-- Modal -->
-<div class="modal fade" id="deputadoDetalhes" tabindex="-1" role="dialog" aria-labelledby="deputadoDetalhesLabel">
+<div class="modal fade" id="deputadoDetalhes" tabindex="-1" role="dialog" aria-labelledby="deputadoDetalhesLabel"
+	*ngIf="isDeputado">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -52,7 +73,23 @@
         <h4 class="modal-title" id="deputadoDetalhesLabel">Detalhes</h4>
       </div>
       <div class="modal-body">
-        ...
+        <div class="row">
+        	<div class="col-md-4">
+        		<a href="{{ deputado.urlFoto }}" class="thumbnail">
+					<img src="{{ deputado.urlFoto }}" alt="Foto do deputado" class="img-circle">
+				</a>
+        	</div>
+        	<div class="col-md-8">
+        		<h4>{{ deputado.nomeParlamentar }}</h4>
+				<p>{{ deputado.uf }}/{{ deputado.partido }} </p>
+				<p>
+					{{deputado.condicao}}
+				</p>
+				<p> Fone: {{ deputado.fone }} </p>
+        	</div>
+        </div>
+
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
