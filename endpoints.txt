@@ -1,0 +1,14 @@
+GET /deputados
+GET /deputados/{id}
+GET /deputados/{id}/detalhes
+GET /deputados/{id}/proposicoes
+GET /deputados/{id}/presencas
+GET /deputados/{id}/ausencias
+
+GET /proposicoes
+GET /proposicoes/{id}
+
+GET /ranking
+GET /ranking/uf/{uf}
+GET /ranking/presencas
+GET /ranking/qtdPropostas
