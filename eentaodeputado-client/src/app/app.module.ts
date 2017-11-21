@@ -11,6 +11,7 @@ import { RankingGeralComponent } from './ranking-geral/ranking-geral.component';
 
 import { DeputadoService } from './deputado.service';
 import { ListagemGeralComponent } from './listagem-geral/listagem-geral.component';
+import { FilterPipe } from './filter.pipe';
 
 
 
@@ -34,7 +35,8 @@ const appRoutes: Routes = [
     AppComponent,
     SobreComponent,
     RankingGeralComponent,
-    ListagemGeralComponent
+    ListagemGeralComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

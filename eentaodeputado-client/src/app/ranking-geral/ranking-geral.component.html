@@ -89,8 +89,8 @@
 					Condição: {{deputado.condicao}}
 				</p>
 				<p> Fone: {{ deputado.fone }} </p>
-				<p> Propostas: {{ deputado.qtdPropostas }}</p>
-				<p> Presenças em sessões: {{ deputado.qtdPresencas }}</p>
+				<p> Propostas: {{ deputado.qtdPropostas || " --- "}}</p>
+				<p> Presenças em sessões: {{ deputado.qtdPresencas || " --- "}}</p>
         	</div>
         </div>
 
