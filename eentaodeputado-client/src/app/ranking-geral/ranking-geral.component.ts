@@ -6,6 +6,12 @@ import { Observable } from 'rxjs/Observable';
 declare var jquery:any;
 declare var $ :any;
 
+
+enum RankingBy {
+  state = 1,
+  general = 0
+};
+
 @Component({
   selector: 'app-ranking-geral',
   templateUrl: './ranking-geral.component.html',
@@ -15,9 +21,13 @@ export class RankingGeralComponent implements OnInit {
 
 	deputados: Deputado[];
   deputado: Deputado;
+  
   isDeputado: boolean;
+  
   linkNextPage: string;
   linkPreviousPage: string;
+
+  rankingBy: RankingBy;
 
 	constructor(private deputadoService: DeputadoService) { }
 
@@ -25,6 +35,7 @@ export class RankingGeralComponent implements OnInit {
 	{
 		this.init();
     this.isDeputado = false;
+    this.rankingBy = 0;
 	}
 
 	init() : void 
@@ -37,7 +48,6 @@ export class RankingGeralComponent implements OnInit {
           
           this.linkPreviousPage = data['previous'];
           this.linkNextPage = data['next'];
-
 				});
 	}
 
@@ -74,6 +84,21 @@ export class RankingGeralComponent implements OnInit {
           });
   }
 
+  isDisable(tipo: string)
+  {
+    if (tipo == 'prev') {
+      if (this.linkPreviousPage == null) {
+        return 'disabled';
+      }
+    }
+
+    if (tipo == 'next') {
+      if (this.linkNextPage == null) {
+        return 'disabled';
+      }
+    }
+
+  }
   showModalDetail()
   {
     $('deputadoDetalhes').modal('show');

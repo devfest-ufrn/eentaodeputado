@@ -9,10 +9,14 @@
 				<div class="form-inline">
 					<div class="form-group">
 						
-						<label for="byEstado">
-							<h4>Filtrar por estado: </h4>
-						</label>
-						<select name="byEstado" id="byEstado" class="form-control">
+						<label for="ranking">
+							<h4>Ranking:</h4>
+						</label>					
+						<select name="" id="" [(ngModel)]="rankingBy" class="form-control">
+							<option value="0" selected="">Geral</option>
+							<option value="1">Por estado</option>
+						</select>
+						<select *ngIf="rankingBy == 1" name="byEstado" id="byEstado" class="form-control">
 							<option value="" selected="" disabled>-- selecione --</option>
 							<option value="">Rio grande do norte</option>
 							<option value="">Rio de janeiro</option>
@@ -25,13 +29,13 @@
 			<!-- Paginação -->
 			<nav aria-label="Page navigation">
 			  <ul class="pagination">
-			    <li>
+			    <li class="{{ isDisable('prev') }}">
 			      <a (click)="togglePage('prev')" href="#" aria-label="Previous">
 			        <span aria-hidden="true">&laquo; Anterior</span>
 			      </a>
 			    </li>
 
-			    <li>
+			    <li class="{{ isDisable('next') }}">
 			      <a (click)="togglePage('next')" href="#" aria-label="Next">
 			        <span aria-hidden="true">Próximo &raquo; </span>
 			      </a>
@@ -48,7 +52,7 @@
 					</a>	
 				</div>
 				<div class="col-md-10">
-					<h4>{{ deputado.nomeParlamentar }}</h4>
+					<h5>{{ deputado.nomeParlamentar }}</h5>
 					<p>{{ deputado.uf }}/{{ deputado.partido }} </p>
 					<p>
 						<button type="button" (click)="detailsDeputado(deputado.idParlamentar)" class="btn btn-primary btn-small" data-toggle="modal" data-target="#deputadoDetalhes">
