@@ -4,15 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
-
-
-
 import { AppComponent } from './app.component';
 import { SobreComponent } from './sobre/sobre.component';
 import { RankingGeralComponent } from './ranking-geral/ranking-geral.component';
 
 
 import { DeputadoService } from './deputado.service';
+import { ListagemGeralComponent } from './listagem-geral/listagem-geral.component';
 
 
 
@@ -24,14 +22,19 @@ const appRoutes: Routes = [
 	{
 		path: 'sobre',
 		component: SobreComponent
-	}
+	}, 
+  {
+    path: 'listagem-geral',
+    component: ListagemGeralComponent
+  }
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
     SobreComponent,
-    RankingGeralComponent
+    RankingGeralComponent,
+    ListagemGeralComponent
   ],
   imports: [
     BrowserModule,

@@ -4,61 +4,60 @@
 		<hr>
 	</div>
 	<div class="row">
-		<div class="well">
-			<div class="form-inline">
-				<div class="form-group">
-					
-					<label for="">
-						<h4>Filtrar por estado: </h4>
-					</label>
-					<select name="" id="" class="form-control">
-						<option value="" selected="" disabled>Selecione...</option>
-						<option value="">Rio grande do norte</option>
-						<option value="">Rio de janeiro</option>
-					</select>
+		<div class="col-md-12">
+			<div class="well">
+				<div class="form-inline">
+					<div class="form-group">
+						
+						<label for="byEstado">
+							<h4>Filtrar por estado: </h4>
+						</label>
+						<select name="byEstado" id="byEstado" class="form-control">
+							<option value="" selected="" disabled>-- selecione --</option>
+							<option value="">Rio grande do norte</option>
+							<option value="">Rio de janeiro</option>
+						</select>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row"  *ngFor="let deputado of deputados">
-			<div class="col-md-2">
-				<a href="{{ deputado.urlFoto }}" class="thumbnail">
-					<img src="{{ deputado.urlFoto }}" alt="Foto do deputado" class="img-circle">
-				</a>	
-			</div>
-			<div class="col-md-10">
-				<h4>{{ deputado.nomeParlamentar }}</h4>
-				<p>{{ deputado.uf }}/{{ deputado.partido }} </p>
-				<p>
-					{{deputado.condicao}}
-				</p>
-				<p> Fone: {{ deputado.fone }} </p>
-				<p>
-					<button type="button" (click)="detailsDeputado(deputado.idParlamentar)" class="btn btn-primary btn-small" data-toggle="modal" data-target="#deputadoDetalhes">
-					  Detalhes
-					</button>
-				</p>	
-			</div>				
-		</div>
+		<div class="col-md-12">
+			<!-- Paginação -->
+			<nav aria-label="Page navigation">
+			  <ul class="pagination">
+			    <li>
+			      <a (click)="togglePage('prev')" href="#" aria-label="Previous">
+			        <span aria-hidden="true">&laquo; Anterior</span>
+			      </a>
+			    </li>
 
-		<nav aria-label="Page navigation">
-		  <ul class="pagination">
-		    <li>
-		      <a href="#" aria-label="Previous">
-		        <span aria-hidden="true">&laquo;</span>
-		      </a>
-		    </li>
-		    <li><a href="#">1</a></li>
-		    <li><a href="#">2</a></li>
-		    <li><a href="#">3</a></li>
-		    <li><a href="#">4</a></li>
-		    <li><a href="#">5</a></li>
-		    <li>
-		      <a (click)="nextPage()" href="#" aria-label="Next">
-		        <span aria-hidden="true">&raquo; </span>
-		      </a>
-		    </li>
-		  </ul>
-		</nav>
+			    <li>
+			      <a (click)="togglePage('next')" href="#" aria-label="Next">
+			        <span aria-hidden="true">Próximo &raquo; </span>
+			      </a>
+			    </li>
+			  </ul>
+			</nav>	
+		</div>
+		
+		<div class="col-md-12">
+			<div class="row"  *ngFor="let deputado of deputados">
+				<div class="col-md-2">
+					<a href="{{ deputado.urlFoto }}" class="thumbnail">
+						<img src="{{ deputado.urlFoto }}" alt="Foto do deputado" class="img-circle">
+					</a>	
+				</div>
+				<div class="col-md-10">
+					<h4>{{ deputado.nomeParlamentar }}</h4>
+					<p>{{ deputado.uf }}/{{ deputado.partido }} </p>
+					<p>
+						<button type="button" (click)="detailsDeputado(deputado.idParlamentar)" class="btn btn-primary btn-small" data-toggle="modal" data-target="#deputadoDetalhes">
+						  Detalhes
+						</button>
+					</p>	
+				</div>				
+			</div>
+		</div>
 	</div>
 	<!-- Button trigger modal -->
 
@@ -83,9 +82,11 @@
         		<h4>{{ deputado.nomeParlamentar }}</h4>
 				<p>{{ deputado.uf }}/{{ deputado.partido }} </p>
 				<p>
-					{{deputado.condicao}}
+					Condição: {{deputado.condicao}}
 				</p>
 				<p> Fone: {{ deputado.fone }} </p>
+				<p> Propostas: {{ deputado.qtdPropostas }}</p>
+				<p> Presenças em sessões: {{ deputado.qtdPresencas }}</p>
         	</div>
         </div>
 

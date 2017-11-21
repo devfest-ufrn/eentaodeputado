@@ -17,22 +17,27 @@ export class RankingGeralComponent implements OnInit {
   deputado: Deputado;
   isDeputado: boolean;
   linkNextPage: string;
+  linkPreviousPage: string;
 
 	constructor(private deputadoService: DeputadoService) { }
 
 	ngOnInit()
 	{
-		this.loadDeputados();
+		this.init();
     this.isDeputado = false;
 	}
 
-	loadDeputados() : void 
+	init() : void 
 	{
 		this.deputadoService
 				.loadAllDeputados()
 				.subscribe(data => {
-          this.linkNextPage = data['next'];
+
 					this.deputados = data['results'];
+          
+          this.linkPreviousPage = data['previous'];
+          this.linkNextPage = data['next'];
+
 				});
 	}
 
@@ -45,17 +50,33 @@ export class RankingGeralComponent implements OnInit {
         .subscribe(data => {
     
           this.deputado = data;
-          $('deputadoDetalhes').modal('show');
+          this.showModalDetail();
     
         });
+  }
+  
+  togglePage(tipo: string)
+  {
+    var url = this.linkNextPage;
 
+    if (tipo == 'prev') {
+      url = this.linkPreviousPage; 
+    }
+    
+    this.deputadoService
+          .loadDeputadosByURI(url)
+          .subscribe(data => {
 
-
+            this.deputados = data['results'];
+            
+            this.linkPreviousPage = data['previous'];
+            this.linkNextPage = data['next'];
+          });
   }
 
-  nextPage(): void
+  showModalDetail()
   {
-    
+    $('deputadoDetalhes').modal('show');
   }
 
 }

@@ -27,4 +27,9 @@ export class DeputadoService {
 		return this.http.get(this.baseUrl+endpoint)
 					.map(res => res as Deputado);
 	}
+
+	loadDeputadosByURI(url: string)
+	{
+		return this.http.get(url);
+	}
 }
