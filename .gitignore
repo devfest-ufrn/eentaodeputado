@@ -2,5 +2,5 @@ bin/
 lib/
 local/
 include/
-.ipynb_checkpoints/
-.pyc
+*.ipynb_checkpoints/
+*.pyc
