@@ -19,9 +19,11 @@ enum RankingBy {
 })
 export class RankingGeralComponent implements OnInit {
 
-	deputados: Deputado[];
+  estados: string[];
+  deputados: Deputado[];
   deputado: Deputado;
-  
+
+  estadoSelected: string;
   isDeputado: boolean;
   
   linkNextPage: string;
@@ -36,6 +38,7 @@ export class RankingGeralComponent implements OnInit {
 		this.init();
     this.isDeputado = false;
     this.rankingBy = 0;
+    this.estadoSelected = "0";
 	}
 
 	init() : void 
@@ -49,6 +52,9 @@ export class RankingGeralComponent implements OnInit {
           this.linkPreviousPage = data['previous'];
           this.linkNextPage = data['next'];
 				});
+
+    this.estados = this.deputadoService
+                            .loadEstados();
 	}
 
   detailsDeputado(id: number)
@@ -65,6 +71,22 @@ export class RankingGeralComponent implements OnInit {
         });
   }
   
+  deputadosByEstado()
+  {
+
+    this.deputadoService
+          .loaddeputadosByUF(this.estadoSelected)
+          .subscribe(data => {
+            this.deputados = data['results'];
+            
+            this.linkPreviousPage = data['previous'];
+            this.linkNextPage = data['next'];
+
+          });
+
+  }
+
+
   togglePage(tipo: string)
   {
     var url = this.linkNextPage;

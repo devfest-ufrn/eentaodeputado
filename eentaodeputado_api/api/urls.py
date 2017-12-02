@@ -19,6 +19,7 @@ urlpatterns = [
 	url(r'^deputados/(?P<idParlamentar>\d+)/proposicoes/$', views.deputadoProposicoes, name='lista-proposicoes'),
 	url(r'^deputados/(?P<idParlamentar>\d+)/presencas/$', views.deputadoPresencas, name='lista-presencas'),
 	url(r'^deputados/(?P<idParlamentar>\d+)/ausencias/$', views.deputadoAusencias, name='lista-ausencias'),
+	url(r'^deputados/uf/'+ uf +'/$', views.DeputadoUF.as_view(), name='deputados-federacao'),
 
 	url(r'^proposicoes/$', views.ProposicaoList.as_view({'get': 'list', 'post': 'create'}), name='lista-proposicoes'),
 	url(r'^proposicoes/(?P<id_proposicao>\d+)/$', views.ProposicaoList.as_view({'get': 'retrieve'}), name='lista-proposicao-id'),
