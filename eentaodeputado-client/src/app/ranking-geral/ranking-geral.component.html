@@ -16,10 +16,10 @@
 							<option value="0" selected="">Geral</option>
 							<option value="1">Por estado</option>
 						</select>
-						<select *ngIf="rankingBy == 1" name="byEstado" id="byEstado" class="form-control">
-							<option value="" selected="" disabled>-- selecione --</option>
-							<option value="">Rio grande do norte</option>
-							<option value="">Rio de janeiro</option>
+						<select *ngIf="rankingBy == 1" name="byEstado" id="byEstado" class="form-control" [(ngModel)]='estadoSelected' (change)='deputadosByEstado()'>
+							<option value="0" selected="" disabled>-- selecione --</option>
+							<option *ngFor="let estado of estados" [value]="estado">{{estado}}</option>
+							
 						</select>
 					</div>
 				</div>

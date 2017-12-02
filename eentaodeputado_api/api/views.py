@@ -14,6 +14,12 @@ from api.serializers import DeputadoSerializer, ProposicaoSerializer
 #DEBUGGER
 #print >>sys.stderr, self.kwargs
 
+class DeputadoUF(ListAPIView):
+    serializer_class = DeputadoSerializer
+
+    def get_queryset(self): 
+        return Deputado.objects.filter(uf=self.kwargs['uf'])
+
 class DeputadoList(viewsets.ModelViewSet):
 	queryset = Deputado.objects.all()
 	serializer_class = DeputadoSerializer
