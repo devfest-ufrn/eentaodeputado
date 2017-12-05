@@ -6,6 +6,12 @@ import { Observable } from 'rxjs/Observable';
 declare var jquery:any;
 declare var $ :any;
 
+
+enum RankingBy {
+  state = 1,
+  general = 0
+};
+
 @Component({
   selector: 'app-ranking-geral',
   templateUrl: './ranking-geral.component.html',
@@ -13,27 +19,42 @@ declare var $ :any;
 })
 export class RankingGeralComponent implements OnInit {
 
-	deputados: Deputado[];
+  estados: string[];
+  deputados: Deputado[];
   deputado: Deputado;
+
+  estadoSelected: string;
   isDeputado: boolean;
+  
   linkNextPage: string;
+  linkPreviousPage: string;
+
+  rankingBy: RankingBy;
 
 	constructor(private deputadoService: DeputadoService) { }
 
 	ngOnInit()
 	{
-		this.loadDeputados();
+		this.init();
     this.isDeputado = false;
+    this.rankingBy = 0;
+    this.estadoSelected = "0";
 	}
 
-	loadDeputados() : void 
+	init() : void 
 	{
 		this.deputadoService
 				.loadAllDeputados()
 				.subscribe(data => {
-          this.linkNextPage = data['next'];
+
 					this.deputados = data['results'];
+          
+          this.linkPreviousPage = data['previous'];
+          this.linkNextPage = data['next'];
 				});
+
+    this.estados = this.deputadoService
+                            .loadEstados();
 	}
 
   detailsDeputado(id: number)
@@ -45,17 +66,64 @@ export class RankingGeralComponent implements OnInit {
         .subscribe(data => {
     
           this.deputado = data;
-          $('deputadoDetalhes').modal('show');
+          this.showModalDetail();
     
         });
+  }
+  
+  deputadosByEstado()
+  {
 
+    this.deputadoService
+          .loaddeputadosByUF(this.estadoSelected)
+          .subscribe(data => {
+            this.deputados = data['results'];
+            
+            this.linkPreviousPage = data['previous'];
+            this.linkNextPage = data['next'];
 
+          });
 
   }
 
-  nextPage(): void
+
+  togglePage(tipo: string)
   {
+    var url = this.linkNextPage;
+
+    if (tipo == 'prev') {
+      url = this.linkPreviousPage; 
+    }
     
+    this.deputadoService
+          .loadDeputadosByURI(url)
+          .subscribe(data => {
+
+            this.deputados = data['results'];
+            
+            this.linkPreviousPage = data['previous'];
+            this.linkNextPage = data['next'];
+          });
+  }
+
+  isDisable(tipo: string)
+  {
+    if (tipo == 'prev') {
+      if (this.linkPreviousPage == null) {
+        return 'disabled';
+      }
+    }
+
+    if (tipo == 'next') {
+      if (this.linkNextPage == null) {
+        return 'disabled';
+      }
+    }
+
+  }
+  showModalDetail()
+  {
+    $('deputadoDetalhes').modal('show');
   }
 
 }
